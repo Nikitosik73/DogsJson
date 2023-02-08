@@ -2,6 +2,7 @@ package com.example.dogsonlineimage;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -25,6 +26,19 @@ public class MainActivity extends AppCompatActivity {
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         mainViewModel.loadDogImage();
+
+        mainViewModel.getIsInternet().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean internet) {
+                if (internet) {
+                    Toast.makeText(
+                            MainActivity.this,
+                            R.string.error_load_image,
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+        });
 
         mainViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override
