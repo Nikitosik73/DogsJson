@@ -1,15 +1,16 @@
 package com.example.dogsonlineimage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +45,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     } while (result != null);
 
-                    Log.d("MainActivity", data.toString());
+                    JSONObject jsonObject = new JSONObject(data.toString());
+                    String status =  jsonObject.getString("status");
+                    String message = jsonObject.getString("message");
+
+                    DogImage dogImage = new DogImage(status, message);
+
+                    Log.d("MainActivity", dogImage.toString());
                 } catch (Exception e) {
                     Log.d("MainActivity", e.toString());
                 }

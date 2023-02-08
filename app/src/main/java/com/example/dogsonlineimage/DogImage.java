@@ -1,5 +1,7 @@
 package com.example.dogsonlineimage;
 
+import androidx.annotation.NonNull;
+
 public class DogImage {
 
     private String status;
@@ -16,5 +18,14 @@ public class DogImage {
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    @NonNull
+    public String toString() {
+        return "DogImage{" +
+                "status='" + status + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }
