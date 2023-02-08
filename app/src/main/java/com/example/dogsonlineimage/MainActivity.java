@@ -34,8 +34,17 @@ public class MainActivity extends AppCompatActivity {
                     InputStream inputStream = httpURLConnection.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                    String result = bufferedReader.readLine();
-                    Log.d("MainActivity", result);
+                    String result;
+
+                    StringBuilder data = new StringBuilder();
+                    do {
+                        result = bufferedReader.readLine();
+                        if (result != null) {
+                            data.append(result);
+                        }
+                    } while (result != null);
+
+                    Log.d("MainActivity", data.toString());
                 } catch (Exception e) {
                     Log.d("MainActivity", e.toString());
                 }
