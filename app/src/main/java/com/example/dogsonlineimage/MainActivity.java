@@ -1,7 +1,6 @@
 package com.example.dogsonlineimage;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +26,17 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel.loadDogImage();
 
+        mainViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean loading) {
+                if (loading){
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                } else {
+                    binding.progressBar.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
         mainViewModel.getDogImageLiveData().observe(this, new Observer<DogImage>() {
             @Override
             public void onChanged(DogImage dogImage) {
@@ -36,5 +46,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.buttonLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainViewModel.loadDogImage();
+            }
+        });
     }
 }
